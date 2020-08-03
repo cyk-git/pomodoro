@@ -1,36 +1,32 @@
-# pomodoro
+# Pomodoro
 
 #### Description
-番茄钟开发仓库
 
-#### Software Architecture
-Software architecture description
+本软件为本人开发的番茄钟时间管理软件，在番茄计时器的基础上增加了本人时间管理中需要的多种功能。
 
-#### Installation
+#### Corporation
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+软件开发遇到如下问题，现寻求合作：
 
-#### Instructions
+1. 本人暂时不了解网络相关的开发，难以进行跨设备同步操作；
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+2. 受设备限制，尽管Qt具有跨平台的能力，现阶段仅能编译出Windows下的桌面软件，移动端难以编译与测试。
 
-#### Contribution
+希望与您的合作可以让我们共同解决这些问题。有合作开发意向的可以发送邮件至cyk_phy@mail.ustc.edu.cn联系合作。
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+#### Update log
 
+2020.8.3 V_0.1.0
 
-#### Gitee Feature
+> -完成了对番茄钟核心计时部件的编写
+>
+> -可以初始化个人文件，但尚不能进行番茄记录工作和设置相关工作
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+2020.7.22  V_0.0.1
+
+> -完成了电子时钟测试样例的编写，删除 pomodoro.h 与 pomodoro.cpp 即可编译出电子时钟软件
+>
+> -对核心类pomodoro的类声明进行了初步编写
+>
+> -创建了git版本控制系统
+

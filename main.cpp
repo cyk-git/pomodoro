@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include "exception.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
