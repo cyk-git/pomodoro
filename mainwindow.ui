@@ -35,7 +35,7 @@
      <number>20</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,6,0,10">
+     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,6,0,6,4">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
@@ -52,7 +52,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="label_t_total_title">
               <property name="font">
                <font>
                 <family>思源黑体 CN Bold</family>
@@ -70,7 +70,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="label_t_today_title">
               <property name="font">
                <font>
                 <family>思源黑体 CN Bold</family>
@@ -88,7 +88,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="label_t_continue_title">
               <property name="font">
                <font>
                 <family>思源黑体 CN Bold</family>
@@ -106,7 +106,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="label_goal_title">
               <property name="font">
                <font>
                 <family>思源黑体 CN Bold</family>
@@ -300,6 +300,22 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>182</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
     <item>
@@ -426,9 +442,11 @@
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-	background-color: rgb(76, 74, 72);
+	background-color: rgba(66, 64, 62, 150);
 	color: rgb(255, 255, 255);
-	border:none;
+	border-style:solid;
+	border-width:1px;
+	border-color: rgb(255, 255, 255);
 }
 QPushButton:hover{
 	background-color: rgb(98, 95, 93);
@@ -492,9 +510,11 @@ QPushButton:pressed{
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-	background-color: rgb(76, 74, 72);
+	background-color: rgba(66, 64, 62, 150);
 	color: rgb(255, 255, 255);
-	border:none;
+	border-style:solid;
+	border-width:1px;
+	border-color: rgb(255, 255, 255);
 }
 QPushButton:hover{
 	background-color: rgb(98, 95, 93);
@@ -538,6 +558,22 @@ QPushButton:pressed{
     </item>
     <item>
      <spacer name="verticalSpacer_2">
+      <property name="styleSheet">
+       <string>QPushButton{
+	background-color: rgba(66, 64, 62, 150);
+	color: rgb(255, 255, 255);
+	border-style:solid;
+	border-width:4px;
+	border-color: rgba(255, 255, 255, 150);
+}
+QPushButton:hover{
+	background-color: rgb(98, 95, 93);
+}
+QPushButton:pressed{
+	background-color: rgb(53, 51, 50);
+}
+</string>
+      </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>

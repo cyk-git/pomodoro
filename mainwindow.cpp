@@ -4,6 +4,8 @@
 #include <QTime>
 #include <QDebug>
 #include <QString>
+#include <QFontDatabase>
+#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
         abort();
     }
     tmt::pomodoro::print_tomato(username);
+    set_fonts();//设置各处字体
     connect(ui->btn_start,SIGNAL(clicked(bool)),this,SLOT(start()));
     connect(&flush_timer,SIGNAL(timeout()),this,SLOT(flush_clock()));
     connect(&tomato_timer,SIGNAL(timeout()),this,SLOT(tomato_ring()));
@@ -130,4 +133,32 @@ void MainWindow::tomato_ring_stop(){
     ring_timer.stop();
     tmt_clock->stop_ring();
     ui->label_title->setText("工作中");
+}
+
+void MainWindow::set_fonts(){
+    //TODO:字体文件缺失的异常处理
+
+    int Sans_Heavy_Id = QFontDatabase::addApplicationFont("./Fonts/SourceHanSansCN-Heavy.ttf");
+    //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
+    QString Sans_Heavy_Family = QFontDatabase::applicationFontFamilies ( Sans_Heavy_Id ).at(0);
+    QFont Sans_Heavy(Sans_Heavy_Family,140);
+    ui->label_clock->setFont(Sans_Heavy);
+    Sans_Heavy.setPointSize(72);
+    ui->label_title->setFont(Sans_Heavy);
+    Sans_Heavy.setPointSize(26);
+    ui->btn_start->setFont(Sans_Heavy);
+    ui->btn_end->setFont(Sans_Heavy);
+
+    int Sans_Bold_Id = QFontDatabase::addApplicationFont("./Fonts/SourceHanSansCN-Bold.ttf");
+    //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
+    QString Sans_Bold_Family = QFontDatabase::applicationFontFamilies ( Sans_Bold_Id ).at(0);
+    QFont Sans_Bold(Sans_Bold_Family,20);
+    ui->label_t_total->setFont(Sans_Bold);
+    ui->label_t_today->setFont(Sans_Bold);
+    ui->label_t_continue->setFont(Sans_Bold);
+    ui->label_goal->setFont(Sans_Bold);
+    ui->label_t_total_title->setFont(Sans_Bold);
+    ui->label_t_today_title->setFont(Sans_Bold);
+    ui->label_t_continue_title->setFont(Sans_Bold);
+    ui->label_goal_title->setFont(Sans_Bold);
 }

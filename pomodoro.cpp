@@ -196,7 +196,7 @@ bool pomodoro::set_default_setting_file(const QString &_username){
     struct timeset timeset{QTime(7,0),25,5,15,4};//设置
     struct goal goal{20,0,0};//目标
     struct mode mode{false,false};//模式
-    QString media_t("./Media/Alarm09.wav"),media_r("./Media/Alarm09.wav");
+    QString media_t("./Media/Alarm.wav"),media_r("./Media/Alarm.wav");
 //TODO:使用与惩罚预设
     set << timeset << goal << mode << media_t << media_r;
     setting_f.close();

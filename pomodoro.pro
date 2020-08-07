@@ -20,15 +20,18 @@ SOURCES += \
     exception.cpp \
     main.cpp \
     mainwindow.cpp \
-    pomodoro.cpp
+    pomodoro.cpp \
+    settingdialog.cpp
 
 HEADERS += \
     exception.h \
     mainwindow.h \
-    pomodoro.h
+    pomodoro.h \
+    settingdialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    settingdialog.ui
 
 TRANSLATIONS += \
     pomodoro_zh_CN.ts
@@ -37,3 +40,7 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES +=
