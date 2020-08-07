@@ -11,7 +11,7 @@
 
 namespace tmt {
     struct tomato{
-        int t_total;//记录昨日结余，仅在每日首次打开时结算改写
+        int last_t_total;//记录昨日结余，仅在每日首次打开时结算改写
         int t_today;//记录今日获取
         int t_use;//记录今日使用
         int t_punish;//记录今日番茄惩罚
@@ -75,6 +75,13 @@ private:
 public:
     pomodoro(const QString &_username = "default");//接受uesrname参数，读取"./user/username/"下相关文件进行初始化
     //TODO:账号管理系统
+
+    //文件基本操作
+    QString user_filepath() const {return "./users/"+username+"/";}
+    QString tomato_filepath() const {return "./users/"+username+"/tomato.tmt";}
+    QString setting_filepath() const {return "./users/"+username+"/setting.cfg";}
+    QString log_filepath() const {return "./users/"+username+"/log.txt";}
+
     //设置操作
     QDate today() const;//判断在番茄钟语境下，今日的日期
     bool set_setting_file() const;
@@ -91,16 +98,16 @@ public:
 
     //番茄操作
     void init_tomato();//初始化tomato成员并创建今日番茄记录
-    bool set_tomato_today() const;//将新收获的番茄写入番茄记录文件
-    bool set_tomato_use() const;//设置番茄记录中的使用数
-    bool set_tomato_punish() const;//设置番茄记录中的惩罚数
-    bool set_tomato_goal() const;//设置番茄记录中的goal结构体
+    void set_today_file() const;//将新收获的番茄写入番茄记录文件
+    void set_use_file() const;//设置番茄记录中的使用数
+    void set_punish_file() const;//设置番茄记录中的惩罚数
+    void set_goal_file() const;//设置番茄记录中的goal结构体
 
     bool is_long_rest(){return !(tomato.t_continue%timeset.long_rest_trigger);};//返回是否为长休息
-    bool tomato_gain(const int &tomato_gain);
+    void tomato_gain(const int &tomato_gain);//收获番茄操作，有可能抛出文件异常
 
-    int t_total(){return tomato.t_total;}//返回番茄总数(实际为昨日结余)
-    int tomato_total(){return tomato.t_total+tomato.t_today-tomato.t_use-tomato.t_punish;}
+    int last_t_total(){return tomato.last_t_total;}//返回番茄总数(实际为昨日结余)
+    int tomato_total(){return tomato.last_t_total+tomato.t_today-tomato.t_use-tomato.t_punish;}
     int t_today(){return tomato.t_today;}//返回今日番茄收获
     int t_continue(){return tomato.t_continue;}//返回持续收获番茄数
     int t_use(){return tomato.t_use;}//返回今日番茄使用
@@ -115,6 +122,10 @@ public:
     void test();
 
     //下面是一些静态函数
+    static QString user_filepath(const QString &_username){return "./users/"+_username+"/";}
+    static QString tomato_filepath(const QString &_username){return "./users/"+_username+"/tomato.tmt";}
+    static QString setting_filepath(const QString &_username){return "./users/"+_username+"/setting.cfg";}
+    static QString log_filepath(const QString &_username){return "./users/"+_username+"/log.txt";}
 
     static void check_userfile(const QString &_username);//检查用户文件夹的完整性，通过异常返回结果
     static bool check_setting(const QString &_username);//检查用户设置文件完整性，若文件为空，返回false

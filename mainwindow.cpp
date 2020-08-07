@@ -56,6 +56,7 @@ void MainWindow::rest(){
 
     int tomato_gain=basetime.msecsTo(QTime::currentTime());//获取番茄计时时长(毫秒)
     tmt_clock->tomato_gain(tomato_gain/(tmt_clock->work_time()));//收获番茄
+//TODO:此处可能抛出文件异常！！
     flush_tomato();//刷新番茄计数显示
 
     basetime=basetime.currentTime();//设置基准时间
@@ -79,6 +80,7 @@ void MainWindow::end_t(){
 
     int tomato_gain=basetime.msecsTo(QTime::currentTime());//获取番茄计时时长(毫秒)
     tmt_clock->tomato_gain(tomato_gain/(tmt_clock->work_time()));//收获番茄
+//TODO:此处可能抛出文件异常！！
     flush_tomato();//刷新番茄计数显示
 
     flush_timer.stop();//开始时钟刷新

@@ -31,9 +31,11 @@ QString exception::errorname() const{
     return error;
 }
 
-file_exception::file_exception(const QString &errorname,const QString &_filepath):exception(errorname),filepath(_filepath){}
+fileOpen_exception::fileOpen_exception(const QString &errorname,const QString &_filepath):exception(errorname),filepath(_filepath){}
 
-filepath_exception::filepath_exception(const QString &errorname,const QString &_filepath):exception(errorname),filepath(_filepath){}
+filePath_exception::filePath_exception(const QString &errorname,const QString &_filepath):exception(errorname),filepath(_filepath){}
+
+fileEmpty_exception::fileEmpty_exception(const QString &errorname,const QString &_filepath):exception(errorname),filepath(_filepath){}
 
 path_exception::path_exception(const QString &errorname,const QString &_path):exception(errorname),path(_path){}
 
