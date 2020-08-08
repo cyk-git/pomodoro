@@ -69,6 +69,7 @@ void MainWindow::rest(){
         rest_timer.start(tmt_clock->short_rest_time());//开始短休息计时
     }
     flush_timer.start(100);//开始时钟刷新
+    ring_timer.stop();//停止响铃计时
     tmt_clock->stop_ring();//停止响铃
     ui->label_title->setText("休息中");//更改标题
     ui->btn_start->setText("开始");//更改休息按钮为开始按钮
@@ -87,6 +88,7 @@ void MainWindow::end_t(){
     flush_tomato();//刷新番茄计数显示
 
     flush_timer.stop();//开始时钟刷新
+    ring_timer.stop();//停止响铃计时
     tmt_clock->stop_ring();//停止响铃
     ui->label_clock->setText("00:00:00");//时钟置零
     ui->label_title->setText("准备工作");//更改标题
@@ -161,4 +163,10 @@ void MainWindow::set_fonts(){
     ui->label_t_today_title->setFont(Sans_Bold);
     ui->label_t_continue_title->setFont(Sans_Bold);
     ui->label_goal_title->setFont(Sans_Bold);
+
+    int fas_Id = QFontDatabase::addApplicationFont(":/fa/fas");
+    //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
+    QString fas_Family = QFontDatabase::applicationFontFamilies ( fas_Id ).at(0);
+    QFont fas(fas_Family,32);
+    ui->btn_setting->setFont(fas);
 }
