@@ -238,9 +238,11 @@ void pomodoro::init_tomato(){
         QDataStream in(&tomato_f);
         QDate day;
         in >> day ;
-        if(day==today()){
+        if(day==today()){//当日有记录的情况
             in >> tomato >> goal;
             tomato_f.close();
+            tomato.t_continue=0;
+            return;
         }else{
             tomato_f.seek(tomato_f.size());
         }
@@ -279,7 +281,7 @@ int pomodoro::tomato_total_from_file(const QString &_username){
     }
 }
 
-void pomodoro::print_tomato(const QString &_username){
+void pomodoro::print_tomato_file(const QString &_username){
     QFile tomato_f(pomodoro::tomato_filepath(_username));
     if(!tomato_f.exists()){
         throw filePath_exception("番茄记录文件不存在！",tomato_f.fileName());
@@ -294,13 +296,13 @@ void pomodoro::print_tomato(const QString &_username){
     }
     QDataStream in(&tomato_f);
     QTextStream out(&print_f);
+    out << QString("番茄记录日期\t昨日总计\t今日收获\t使用\t惩罚\t总目标\t减半时长\t排除时长\n");
     for(;!in.atEnd();){
         QDate day;
         struct tomato tomato;
         struct goal goal;
         in >> day >> tomato >> goal;
-        qDebug() << day;
-        out << "Date:" << day.toString("yyyy.MM.dd") << "\n"
+/*        out << "Date:" << day.toString("yyyy.MM.dd") << "\n"
             << "tomato.last_t_total:" << tomato.last_t_total << "\n"
             << "tomato.t_today:" << tomato.t_today << "\n"
             << "tomato.t_use:" << tomato.t_use << "\n"
@@ -308,9 +310,23 @@ void pomodoro::print_tomato(const QString &_username){
             << "goal.g_total:" << goal.g_total << "\n"
             << "goal.g_half:" << goal.g_half << "\n"
             << "goal.g_zero:" << goal.g_zero << "\n\n";
+*/
+
+        out << day.toString("yyyy.MM.dd") << "\t"
+            << tomato.last_t_total << "\t"
+            << tomato.t_today << "\t"
+            << tomato.t_use << "\t"
+            << tomato.t_punish << "\t"
+            << goal.g_total << "\t"
+            << goal.g_half << "\t"
+            << goal.g_zero << "\n";
     }
     print_f.close();
     tomato_f.close();
+}
+
+void pomodoro::print_tomato_file() const{
+    pomodoro::print_tomato_file(username);
 }
 
 void pomodoro::init_playlist(){
@@ -359,7 +375,7 @@ void pomodoro::set_today_file() const{
     if(!check_tomato(username)){
         throw fileEmpty_exception("番茄文件为空文件！",tomato_filepath());
     }
-    tomato_f.open(QIODevice::WriteOnly);
+    tomato_f.open(QIODevice::ReadWrite);
     tomato_f.seek(tomato_f.size()-(qint64)sizeof(int)*(3+3));//定位t_today的位置
     QDataStream out(&tomato_f);
     out << tomato.t_today;

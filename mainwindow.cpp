@@ -6,6 +6,7 @@
 #include <QString>
 #include <QFontDatabase>
 #include <QFont>
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,13 +22,15 @@ MainWindow::MainWindow(QWidget *parent)
         QMessageBox::critical(this,"错误","无法创建番茄钟，程序终止！","确定");
         abort();
     }
-    tmt::pomodoro::print_tomato(username);
+    //tmt::pomodoro::print_tomato_file(username);
     set_fonts();//设置各处字体
     connect(ui->btn_start,SIGNAL(clicked(bool)),this,SLOT(start()));
     connect(&flush_timer,SIGNAL(timeout()),this,SLOT(flush_clock()));
     connect(&tomato_timer,SIGNAL(timeout()),this,SLOT(tomato_ring()));
     connect(&rest_timer,SIGNAL(timeout()),this,SLOT(rest_ring()));
     connect(&ring_timer,SIGNAL(timeout()),this,SLOT(tomato_ring_stop()));
+    connect(ui->btn_print,SIGNAL(clicked(bool)),this,SLOT(print_tomato()));
+//    connect(ui->btn_setting,SIGNAL(clicked(bool)),this,SLOT(test()));
 }
 
 MainWindow::~MainWindow()
@@ -169,4 +172,16 @@ void MainWindow::set_fonts(){
     QString fas_Family = QFontDatabase::applicationFontFamilies ( fas_Id ).at(0);
     QFont fas(fas_Family,32);
     ui->btn_setting->setFont(fas);
+}
+
+void MainWindow::test(){
+    tmt_clock->tomato_gain(1);
+    flush_tomato();
+}
+
+void MainWindow::print_tomato(){
+    tmt_clock->print_tomato_file();
+    if(!QMessageBox::information(this,"提示","打印成功！\n点击确定查看tomato_print.txt文档。","确定","取消")){
+        QDesktopServices::openUrl ( QUrl::fromLocalFile(tmt_clock->user_filepath()+"tomato_print.txt") );
+    }
 }

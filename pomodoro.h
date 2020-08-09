@@ -75,6 +75,7 @@ private:
 public:
     pomodoro(const QString &_username = "default");//接受uesrname参数，读取"./user/username/"下相关文件进行初始化
     //TODO:账号管理系统
+    QString get_username() const{return username;}
 
     //文件基本操作
     QString user_filepath() const {return "./users/"+username+"/";}
@@ -113,6 +114,8 @@ public:
     int t_use(){return tomato.t_use;}//返回今日番茄使用
     int t_punish(){return tomato.t_punish;}//返回今日番茄惩罚
 
+    void print_tomato_file() const;
+
     //响铃函数
     void init_playlist() ;
     void tomato_ring() ;
@@ -136,7 +139,7 @@ public:
     static bool repair_tomato(const QString &_username);//修复tomato文件
     static bool repair_log(const QString &_username);//修复log文件
 
-    static void print_tomato(const QString &_username);//打印输出tomato文件
+    static void print_tomato_file(const QString &_username);//打印输出tomato文件
 
     static int tomato_total_from_file(const QString &_username);//将昨日结余与今日操作相加减，计算出总番茄结余
 //TODO:将使用uesrname读文件的函数用const QFile &file进行重载，使其可以使用文件路径直接读取

@@ -29,6 +29,8 @@ private slots:
     void tomato_ring();
     void rest_ring();
     void tomato_ring_stop();
+    void test();
+    void print_tomato();
 
 private:
     Ui::MainWindow *ui;
