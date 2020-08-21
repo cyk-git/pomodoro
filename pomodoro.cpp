@@ -63,12 +63,11 @@ pomodoro::pomodoro(const QString &_username){//将各种读取操作使用成员
     do{//用户文件检查
         try {
             check_userfile(_username);
-            init_setting();
+            init_setting_from_file();
             init_tomato();
-            init_playlist();
             check=false;
         } catch (path_exception &path_exc) {
-            path_exc.show_massage_box(path_exc.errorname()+"缺失，将创建新的"+path_exc.errorname());
+            path_exc.show_massage_box(path_exc.errorname()+"将新建文件。");
             QDir filedir(path_exc.pathname());
             if(!filedir.mkpath("./")){//创建路径
                 exception("无法创建个人文件夹，程序终止！").show_massage_box(QMessageBox::Critical,"错误");
@@ -92,7 +91,7 @@ pomodoro::pomodoro(const QString &_username){//将各种读取操作使用成员
             newfile.close();
     //TODO:完善新建个人配置文件函数
         }catch (filePath_exception &file_exc){
-            file_exc.show_massage_box(file_exc.errorname()+"缺失，将创建新的"+file_exc.errorname());
+            file_exc.show_massage_box(file_exc.errorname()+"将新建文件。");
             QFile newfile(file_exc.filepathname());
             if(newfile.fileName()==(setting_filepath())){//对个人配置文件特殊处理
                 if(!set_default_setting_file(username)){
@@ -116,7 +115,7 @@ pomodoro::pomodoro(const QString &_username){//将各种读取操作使用成员
             abort();
         }
     }while(check);
-
+    init_playlist();
     //TODO:异常处理
 //    QFile tomato_f(filepath+"tomato.tmt");
 //    tomato_f.open(QFile::ReadOnly);
@@ -210,7 +209,7 @@ void pomodoro::test(){
     qDebug() << mode.simple_mode << "\n" << mode.exercise_mode <<"\n";
 }
 
-void pomodoro::init_setting(){
+void pomodoro::init_setting_from_file(){
     QFile setting_f("./users/"+username+"/setting.cfg");
     if(!setting_f.exists()){
         throw filePath_exception("设置文件不存在！",setting_f.fileName());
@@ -330,12 +329,22 @@ void pomodoro::print_tomato_file() const{
 }
 
 void pomodoro::init_playlist(){
-    if(!QFile::exists(media_t)){
-        throw filePath_exception("番茄响铃媒体文件不存在！",media_t);
-    }
-    if(!QFile::exists(media_r)){
-        throw filePath_exception("休息响铃媒体文件不存在！",media_r);
-    }
+//    if(!QFile::exists(media_t)){
+//        throw filePath_exception("番茄响铃媒体文件不存在！",media_t);
+//    }
+//    if(!QFile::exists(media_r)){
+//        throw filePath_exception("休息响铃媒体文件不存在！",media_r);
+//    }
+//    player.setMedia(QUrl::fromLocalFile(media_t));
+//    if(!player.isAvailable()){
+//        throw fileOpen_exception("工作响铃媒体文件无法打开！",media_t);
+//    }
+//    player.setMedia(QUrl::fromLocalFile(media_r));
+//    if(!player.isAvailable()){
+//        throw fileOpen_exception("休息响铃媒体文件无法打开！",media_r);
+//    }
+    //TODO:异常处理
+    playlist.clear();
     playlist.addMedia(QUrl::fromLocalFile(media_r));
     playlist.addMedia(QUrl::fromLocalFile(media_t));
     playlist.addMedia(QUrl::fromLocalFile(media_t));
@@ -352,14 +361,14 @@ void pomodoro::tomato_ring() {
     player.setPlaylist(&playlist);
 //    player.setMedia(QUrl::fromLocalFile(media_t));
     if(!player.isAvailable()){
-        throw fileOpen_exception("媒体文件无法打开！",media_t);
+        throw fileOpen_exception("工作响铃媒体文件无法打开！",media_t);
     }
     player.play();
 }
 
 void pomodoro::rest_ring() {
     if(!QFile::exists(media_t)){
-        throw filePath_exception("媒体文件不存在！",media_r);
+        throw filePath_exception("休息响铃媒体文件不存在！",media_r);
     }
     playlist.setCurrentIndex(1);
     playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
@@ -407,6 +416,26 @@ void pomodoro::tomato_gain(const int &tomato_gain){
     tomato.t_today += tomato_gain;
     tomato.t_continue += tomato_gain;
     set_today_file();//这里会抛出文件异常
+}
+
+void pomodoro::init_setting(struct timeset t_set, struct goal g_set, const QString mt_set, const QString mr_set){
+    timeset=t_set;
+    goal=g_set;//TODO:媒体文件检查报异常
+    media_t=mt_set;
+    media_r=mr_set;
+    init_playlist();
+}
+
+bool pomodoro::set_setting_file() const{
+    QFile setting_f(pomodoro::setting_filepath(username));
+    if(!setting_f.open(QFile::WriteOnly)){
+        return false;
+    }
+    QDataStream set(&setting_f);
+//TODO:使用与惩罚预设
+    set << timeset << goal << mode << media_t << media_r;
+    setting_f.close();
+    return true;
 }
 
 }

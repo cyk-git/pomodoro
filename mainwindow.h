@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDateTime>
 #include <QTimer>
+#include "settingdialog.h"
 #include "pomodoro.h"
 #include "exception.h"
 
@@ -37,6 +38,7 @@ private:
     tmt::pomodoro *tmt_clock;
     QTime basetime;
     QTimer flush_timer,tomato_timer,rest_timer,ring_timer;
+    SettingDialog *setting_dialog;
     void set_fonts();//设置各个部件的字体。TODO:字体文件缺失异常处理
 };
 #endif // MAINWINDOW_H

@@ -17,7 +17,19 @@
    <string notr="true">QMainWindow{
 	background-color: rgb(76, 74, 72);
 	color: rgb(255, 255, 255);
-}</string>
+}
+QToolButton{
+	background: transparent;
+	color: rgba(255, 255, 255,150);
+	border:none;
+}
+QToolButton:hover,QToolButton:focus{
+	color: rgba(255, 255, 255,200);
+}
+QToolButton:pressed{
+	color: rgba(255, 255, 255,100);
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -322,7 +334,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="btn_setting">
+             <widget class="QToolButton" name="btn_setting">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -341,22 +353,26 @@
                 <kerning>true</kerning>
                </font>
               </property>
+              <property name="toolTip">
+               <string>设置</string>
+              </property>
+              <property name="statusTip">
+               <string/>
+              </property>
+              <property name="whatsThis">
+               <string/>
+              </property>
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <property name="accessibleDescription">
+               <string/>
+              </property>
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="styleSheet">
-               <string notr="true">QPushButton{
-	background: transparent;
-	color: rgba(255, 255, 255,150);
-	border:none;
-}
-QPushButton:hover{
-	color: rgba(255, 255, 255,200);
-}
-QPushButton:pressed{
-	color: rgba(255, 255, 255,100);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string></string>
@@ -370,8 +386,8 @@ QPushButton:pressed{
               <property name="checkable">
                <bool>true</bool>
               </property>
-              <property name="flat">
-               <bool>false</bool>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
               </property>
              </widget>
             </item>
@@ -393,7 +409,7 @@ QPushButton:pressed{
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="btn_print">
+             <widget class="QToolButton" name="btn_print">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -412,22 +428,14 @@ QPushButton:pressed{
                 <kerning>true</kerning>
                </font>
               </property>
+              <property name="toolTip">
+               <string>打印番茄记录</string>
+              </property>
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="styleSheet">
-               <string notr="true">QPushButton{
-	background: transparent;
-	color: rgba(255, 255, 255,150);
-	border:none;
-}
-QPushButton:hover{
-	color: rgba(255, 255, 255,200);
-}
-QPushButton:pressed{
-	color: rgba(255, 255, 255,100);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string></string>
@@ -441,8 +449,8 @@ QPushButton:pressed{
               <property name="checkable">
                <bool>true</bool>
               </property>
-              <property name="flat">
-               <bool>false</bool>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
               </property>
              </widget>
             </item>
@@ -614,6 +622,9 @@ QPushButton:pressed{
           <bold>true</bold>
          </font>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
 	background-color: rgba(66, 64, 62, 150);
@@ -622,13 +633,12 @@ QPushButton:pressed{
 	border-width:1px;
 	border-color: rgb(255, 255, 255);
 }
-QPushButton:hover{
+QPushButton:hover,QPushButton:focus{
 	background-color: rgb(98, 95, 93);
 }
 QPushButton:pressed{
 	background-color: rgb(53, 51, 50);
-}
-</string>
+}</string>
         </property>
         <property name="text">
          <string>开始</string>
@@ -682,6 +692,9 @@ QPushButton:pressed{
           <bold>true</bold>
          </font>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
 	background-color: rgba(66, 64, 62, 150);
@@ -690,13 +703,12 @@ QPushButton:pressed{
 	border-width:1px;
 	border-color: rgb(255, 255, 255);
 }
-QPushButton:hover{
+QPushButton:hover,QPushButton:focus{
 	background-color: rgb(98, 95, 93);
 }
 QPushButton:pressed{
 	background-color: rgb(53, 51, 50);
-}
-</string>
+}</string>
         </property>
         <property name="text">
          <string>结束</string>

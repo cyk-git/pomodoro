@@ -77,6 +77,30 @@ public:
     //TODO:账号管理系统
     QString get_username() const{return username;}
 
+    //获得参数
+    QTime start_time() const{return timeset.start_time;}
+    int work_time()const{return timeset.work_time*1000*60;}//返回工作时间的毫秒值
+    int short_rest_time()const{return timeset.short_rest_time*1000*60;}//返回短休息时间的毫秒值
+    int long_rest_time()const{return timeset.long_rest_time*1000*60;}//返回长休息时间的毫秒值
+    int long_rest_trigger()const{return timeset.long_rest_trigger;}//返回长休息间隔
+    int goal_total()const{return goal.g_total;}//返回总计划数
+    int goal_half()const{return goal.g_half;}//返回半计划数
+    int goal_zero()const{return goal.g_zero;}//返回零计划数
+    QString media_t_path()const{return media_t;}//返回番茄闹钟文件路径
+    QString media_r_path()const{return media_r;}//返回番茄闹钟文件路径
+
+    //设置参数
+//    void set_start_time() const{return timeset.start_time;}
+//    void set_work_time()const{return timeset.work_time*1000*60;}//返回工作时间的毫秒值
+//    void set_short_rest_time()const{return timeset.short_rest_time*1000*60;}//返回短休息时间的毫秒值
+//    void set_long_rest_time()const{return timeset.long_rest_time*1000*60;}//返回长休息时间的毫秒值
+//    void set_long_rest_trigger()const{return timeset.long_rest_trigger;}//返回长休息间隔
+//    void set_goal_total()const{return goal.g_total;}//返回总计划数
+//    void set_goal_half()const{return goal.g_half;}//返回半计划数
+//    void set_goal_zero()const{return goal.g_zero;}//返回零计划数
+//    void set_media_t_path()const{return media_t;}//返回番茄闹钟文件路径
+//    void set_media_r_path()const{return media_r;}//返回番茄闹钟文件路径
+
     //文件基本操作
     QString user_filepath() const {return "./users/"+username+"/";}
     QString tomato_filepath() const {return "./users/"+username+"/tomato.tmt";}
@@ -85,16 +109,12 @@ public:
 
     //设置操作
     QDate today() const;//判断在番茄钟语境下，今日的日期
-    bool set_setting_file() const;
-    void init_setting();
+    bool set_setting_file() const;//将番茄钟内的设置写入设置文件
+    void init_setting_from_file();//初始化番茄钟设置，将文件中的设置读入番茄钟
+    void init_setting(struct timeset t_set={QTime::fromString("07:00","hh:mm"),25,5,15,4},struct goal g_set={20,0,0},const QString mt_set="./Media/Alarm.wav",const QString mr_set="./Media/Alarm.wav");
+//TODO:将init_setting改为init_setting_from_file,将init_setting加入参数作为更改设置的函数
 
-    int work_time(){return timeset.work_time*1000*60;}//返回工作时间的毫秒值
-    int short_rest_time(){return timeset.short_rest_time*1000*60;}//返回短休息时间的毫秒值
-    int long_rest_time(){return timeset.long_rest_time*1000*60;}//返回长休息时间的毫秒值
-    int long_rest_trigger(){return timeset.long_rest_trigger;}//返回长休息间隔
-    int goal_total(){return goal.g_total;}//返回总计划数
-    int goal_half(){return goal.g_half;}//返回半计划数
-    int goal_zero(){return goal.g_zero;}//返回零计划数
+
     int goal_today(){return floor((goal.g_total-goal_half()-2*goal_zero())*0.8);}
 
     //番茄操作

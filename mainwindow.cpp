@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     username="default";
     try {
         tmt_clock=new tmt::pomodoro(username);
+        setting_dialog=new SettingDialog(tmt_clock);
     } catch (std::bad_alloc &bad_alloc) {
         QMessageBox::critical(this,"错误","无法创建番茄钟，程序终止！","确定");
         abort();
@@ -30,12 +31,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&rest_timer,SIGNAL(timeout()),this,SLOT(rest_ring()));
     connect(&ring_timer,SIGNAL(timeout()),this,SLOT(tomato_ring_stop()));
     connect(ui->btn_print,SIGNAL(clicked(bool)),this,SLOT(print_tomato()));
-//    connect(ui->btn_setting,SIGNAL(clicked(bool)),this,SLOT(test()));
+    flush_tomato();
+    connect(ui->btn_setting,SIGNAL(clicked(bool)),this,SLOT(test()));
 }
 
 MainWindow::~MainWindow()
 {
     tmt_clock->stop_ring();
+    setting_dialog->close();//TODO:事件重写，让关闭的时候询问是否保存
+    delete setting_dialog;
     delete tmt_clock;
     delete ui;
 }
@@ -124,14 +128,26 @@ void MainWindow::flush_tomato(){
 }
 
 void MainWindow::tomato_ring(){
-    tmt_clock->tomato_ring();
     ui->label_title->setText("稍事休息");
     ring_timer.start(30000);
+    try {
+        tmt_clock->tomato_ring();
+    } catch (tmt::exception &exc) {
+        end_t();
+        exc.show_massage_box(exc.errorname()+"请更改媒体文件地址信息！",QMessageBox::Critical,"错误");
+        setting_dialog->exec();
+    }
 }
 
 void MainWindow::rest_ring(){
-    tmt_clock->rest_ring();
     ui->label_title->setText("开始工作");
+    try {
+        tmt_clock->rest_ring();
+    } catch (tmt::exception &exc) {
+        end_r();
+        exc.show_massage_box(exc.errorname()+"请更改媒体文件地址信息！",QMessageBox::Critical,"错误");
+        setting_dialog->exec();
+    }
 }
 
 void MainWindow::tomato_ring_stop(){
@@ -175,8 +191,7 @@ void MainWindow::set_fonts(){
 }
 
 void MainWindow::test(){
-    tmt_clock->tomato_gain(1);
-    flush_tomato();
+    setting_dialog->show();
 }
 
 void MainWindow::print_tomato(){
