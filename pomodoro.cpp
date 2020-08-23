@@ -67,7 +67,7 @@ pomodoro::pomodoro(const QString &_username){//将各种读取操作使用成员
             init_tomato();
             check=false;
         } catch (path_exception &path_exc) {
-            path_exc.show_massage_box(path_exc.errorname()+"将新建文件。");
+            path_exc.show_massage_box(path_exc.errorname()+"将新建路径。");
             QDir filedir(path_exc.pathname());
             if(!filedir.mkpath("./")){//创建路径
                 exception("无法创建个人文件夹，程序终止！").show_massage_box(QMessageBox::Critical,"错误");
@@ -143,7 +143,7 @@ void pomodoro::check_userfile(const QString &_username){
     if(!filedir.exists()){
 //TODO：无个人文件夹报错，更改登录账户或创建新账户
 //TODO：没有user文件夹为首次使用软件，引导创建新账户
-        throw path_exception("个人文件夹",filepath);
+        throw path_exception("个人文件夹缺失！",filepath);
     }
     //个人文件夹检查完毕
     //检查个人配置文件、番茄记录文件、详情记录文件完整性
@@ -151,13 +151,13 @@ void pomodoro::check_userfile(const QString &_username){
           tomato_f(filepath+"tomato.tmt"),
           log_f(filepath+"log.txt");
     if (!setting_f.exists()){
-        throw filePath_exception("个人配置文件",filepath+"setting.cfg");
+        throw filePath_exception("个人配置文件缺失！",filepath+"setting.cfg");
     }
     if(!tomato_f.exists()){
-        throw filePath_exception("番茄记录",filepath+"tomato.tmt");
+        throw filePath_exception("番茄记录缺失！",filepath+"tomato.tmt");
     }
     if(!log_f.exists()){
-        throw filePath_exception("详情记录文件",filepath+"log.txt");
+        throw filePath_exception("详情记录文件缺失！",filepath+"log.txt");
     }
     check_setting(_username);
     check_tomato(_username);

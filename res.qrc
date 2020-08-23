@@ -1,7 +1,9 @@
 <RCC>
-    <qresource prefix="/fa">
+    <qresource prefix="/fonts">
         <file alias="fab">fontawesome/fa-brands-400.ttf</file>
         <file alias="far">fontawesome/fa-regular-400.ttf</file>
         <file alias="fas">fontawesome/fa-solid-900.ttf</file>
+        <file alias="bold">Fonts/SourceHanSansCN-Bold.ttf</file>
+        <file alias="heavy">Fonts/SourceHanSansCN-Heavy.ttf</file>
     </qresource>
 </RCC>

@@ -4,6 +4,7 @@ QT += multimediawidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+CONFIG += resources_big
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -21,17 +22,20 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     pomodoro.cpp \
-    settingdialog.cpp
+    settingdialog.cpp \
+    simplewindow.cpp
 
 HEADERS += \
     exception.h \
     mainwindow.h \
     pomodoro.h \
-    settingdialog.h
+    settingdialog.h \
+    simplewindow.h
 
 FORMS += \
     mainwindow.ui \
-    settingdialog.ui
+    settingdialog.ui \
+    simplewindow.ui
 
 TRANSLATIONS += \
     pomodoro_zh_CN.ts

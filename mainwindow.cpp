@@ -18,28 +18,32 @@ MainWindow::MainWindow(QWidget *parent)
     username="default";
     try {
         tmt_clock=new tmt::pomodoro(username);
-        setting_dialog=new SettingDialog(tmt_clock);
+        setting_dialog=nullptr;
+        simple_window=nullptr;
     } catch (std::bad_alloc &bad_alloc) {
         QMessageBox::critical(this,"错误","无法创建番茄钟，程序终止！","确定");
         abort();
     }
     //tmt::pomodoro::print_tomato_file(username);
-    set_fonts();//设置各处字体
+    set_fonts();//引入字体
+    flush_tomato();//刷新番茄计数
     connect(ui->btn_start,SIGNAL(clicked(bool)),this,SLOT(start()));
     connect(&flush_timer,SIGNAL(timeout()),this,SLOT(flush_clock()));
     connect(&tomato_timer,SIGNAL(timeout()),this,SLOT(tomato_ring()));
     connect(&rest_timer,SIGNAL(timeout()),this,SLOT(rest_ring()));
     connect(&ring_timer,SIGNAL(timeout()),this,SLOT(tomato_ring_stop()));
     connect(ui->btn_print,SIGNAL(clicked(bool)),this,SLOT(print_tomato()));
-    flush_tomato();
-    connect(ui->btn_setting,SIGNAL(clicked(bool)),this,SLOT(test()));
+    connect(ui->btn_setting,SIGNAL(clicked(bool)),this,SLOT(setting()));
+    connect(ui->btn_simple,SIGNAL(clicked(bool)),this,SLOT(simple()));
+
 }
 
 MainWindow::~MainWindow()
 {
     tmt_clock->stop_ring();
-    setting_dialog->close();//TODO:事件重写，让关闭的时候询问是否保存
+    //TODO:事件重写，让关闭的时候询问是否保存
     delete setting_dialog;
+    delete simple_window;
     delete tmt_clock;
     delete ui;
 }
@@ -159,7 +163,7 @@ void MainWindow::tomato_ring_stop(){
 void MainWindow::set_fonts(){
     //TODO:字体文件缺失的异常处理
 
-    int Sans_Heavy_Id = QFontDatabase::addApplicationFont("./Fonts/SourceHanSansCN-Heavy.ttf");
+    int Sans_Heavy_Id = QFontDatabase::addApplicationFont(":/fonts/heavy");
     //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
     QString Sans_Heavy_Family = QFontDatabase::applicationFontFamilies ( Sans_Heavy_Id ).at(0);
     QFont Sans_Heavy(Sans_Heavy_Family,140);
@@ -170,7 +174,7 @@ void MainWindow::set_fonts(){
     ui->btn_start->setFont(Sans_Heavy);
     ui->btn_end->setFont(Sans_Heavy);
 
-    int Sans_Bold_Id = QFontDatabase::addApplicationFont("./Fonts/SourceHanSansCN-Bold.ttf");
+    int Sans_Bold_Id = QFontDatabase::addApplicationFont(":/fonts/bold");
     //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
     QString Sans_Bold_Family = QFontDatabase::applicationFontFamilies ( Sans_Bold_Id ).at(0);
     QFont Sans_Bold(Sans_Bold_Family,20);
@@ -183,15 +187,40 @@ void MainWindow::set_fonts(){
     ui->label_t_continue_title->setFont(Sans_Bold);
     ui->label_goal_title->setFont(Sans_Bold);
 
-    int fas_Id = QFontDatabase::addApplicationFont(":/fa/fas");
+    /*int fas_Id = */QFontDatabase::addApplicationFont(":/fonts/fas");
     //将字体Id传给applicationFontFamilies,得到一个QStringList,其中的第一个元素为新添加字体的family
-    QString fas_Family = QFontDatabase::applicationFontFamilies ( fas_Id ).at(0);
-    QFont fas(fas_Family,32);
-    ui->btn_setting->setFont(fas);
+    //QString fas_Family = QFontDatabase::applicationFontFamilies ( fas_Id ).at(0);
+    //QFont fas(fas_Family,32);
+    //ui->btn_setting->setFont(fas);
+    //ui->btn_print->setFont()
 }
 
-void MainWindow::test(){
+void MainWindow::setting(){
+    if(setting_dialog==nullptr){
+        try{
+            setting_dialog=new SettingDialog(tmt_clock,this);
+        }catch (std::bad_alloc &bad_alloc) {
+            QMessageBox::critical(this,"错误","无法创建设置窗口，程序终止！","确定");
+            abort();
+        }
+    }
+    ui->btn_setting->setChecked(false);
     setting_dialog->show();
+}
+
+void MainWindow::simple(){
+    if(simple_window==nullptr){
+        try{
+            simple_window=new SimpleWindow(this,nullptr);
+        }catch (std::bad_alloc &bad_alloc) {
+            QMessageBox::critical(this,"错误","无法创建小窗口，程序终止！","确定");
+            abort();
+        }
+    }
+    simple_window->set_start_btn();
+    simple_window->show();
+    this->hide();
+    ui->btn_simple->setChecked(false);
 }
 
 void MainWindow::print_tomato(){
@@ -199,4 +228,12 @@ void MainWindow::print_tomato(){
     if(!QMessageBox::information(this,"提示","打印成功！\n点击确定查看tomato_print.txt文档。","确定","取消")){
         QDesktopServices::openUrl ( QUrl::fromLocalFile(tmt_clock->user_filepath()+"tomato_print.txt") );
     }
+    ui->btn_print->setChecked(false);
+
+}
+
+void MainWindow::test(){}
+
+void MainWindow::click_end(){
+    ui->btn_end->click();
 }

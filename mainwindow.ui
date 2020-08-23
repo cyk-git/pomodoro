@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>番茄计时器</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
@@ -69,7 +69,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_total_title">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -87,7 +87,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_today_title">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -105,7 +105,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_continue_title">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -123,7 +123,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_goal_title">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -151,7 +151,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_total">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -169,7 +169,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_today">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -187,7 +187,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_t_continue">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -205,7 +205,7 @@ QToolButton:pressed{
              <widget class="QLabel" name="label_goal">
               <property name="font">
                <font>
-                <family>思源黑体 CN Bold</family>
+                <family>思源黑体 CN</family>
                 <pointsize>20</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
@@ -334,12 +334,18 @@ QToolButton:pressed{
              </spacer>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_setting">
+             <widget class="QToolButton" name="btn_simple">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>86</width>
+                <height>56</height>
+               </size>
               </property>
               <property name="font">
                <font>
@@ -352,6 +358,102 @@ QToolButton:pressed{
                 <stylestrategy>PreferAntialias</stylestrategy>
                 <kerning>true</kerning>
                </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
+              <property name="toolTip">
+               <string>切换为小窗口模式</string>
+              </property>
+              <property name="statusTip">
+               <string/>
+              </property>
+              <property name="whatsThis">
+               <string/>
+              </property>
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <property name="accessibleDescription">
+               <string/>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string></string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="popupMode">
+               <enum>QToolButton::InstantPopup</enum>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::NoArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QToolButton" name="btn_setting">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>86</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Font Awesome 5 Free Solid</family>
+                <pointsize>32</pointsize>
+                <weight>75</weight>
+                <italic>false</italic>
+                <bold>true</bold>
+                <underline>false</underline>
+                <stylestrategy>PreferAntialias</stylestrategy>
+                <kerning>true</kerning>
+               </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
               </property>
               <property name="toolTip">
                <string>设置</string>
@@ -386,8 +488,14 @@ QToolButton:pressed{
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="popupMode">
+               <enum>QToolButton::InstantPopup</enum>
+              </property>
               <property name="toolButtonStyle">
                <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -416,6 +524,12 @@ QToolButton:pressed{
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>86</width>
+                <height>56</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Font Awesome 5 Free Solid</family>
@@ -427,6 +541,9 @@ QToolButton:pressed{
                 <stylestrategy>PreferAntialias</stylestrategy>
                 <kerning>true</kerning>
                </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
               </property>
               <property name="toolTip">
                <string>打印番茄记录</string>
@@ -449,8 +566,14 @@ QToolButton:pressed{
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="popupMode">
+               <enum>QToolButton::InstantPopup</enum>
+              </property>
               <property name="toolButtonStyle">
                <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -523,7 +646,7 @@ QToolButton:pressed{
         <property name="minimumSize">
          <size>
           <width>1111</width>
-          <height>221</height>
+          <height>230</height>
          </size>
         </property>
         <property name="maximumSize">
